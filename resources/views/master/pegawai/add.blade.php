@@ -115,7 +115,6 @@
                                         </div>
                                     </div>
 
-
                                     <div class="form-row m-1">
                                         <label for="t_lahir" class="col-form-label s-12 col-md-2">
                                             Tempat Lahir <span class="text-danger">*</span>
