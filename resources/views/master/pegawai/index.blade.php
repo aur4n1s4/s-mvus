@@ -29,9 +29,8 @@
             </div>
         </header>
 
-        <div class="container-fluid my-3">
+        <div class="container-fluid my-1">
             <div class="row">
-                <!-- Start Table -->
                 <div class="col-md-12 p-2">
                     <div class="card">
                         <div class="card-header">
@@ -61,7 +60,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- End Table -->
             </div>
         </div>
     </div>

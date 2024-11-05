@@ -3,8 +3,8 @@
 @section('title', $title)
 
 @section('style')
-    <link rel="stylesheet" href="{{ asset('backend/css/jquery-confirm.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('backend/css/jquery-fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirm.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery-fancybox.min.css') }}">
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col">
                         <h4>
-                            <i class="icon icon-users"></i> Tambah {{ $subTitle }}
+                            <i class="icon icon-document2"></i> Edit {{ $subTitle }}
                         </h4>
                     </div>
                 </div>
@@ -36,9 +36,9 @@
                     <div class="card">
                         <div class="card-body">
                             <form class="needs-validation" id="form" method="POST"
-                                data-url="{{ route($route . 'store') }}" novalidate>
+                                data-url="{{ route($route . 'update', $pengunjung->id) }}" novalidate>
                                 @csrf
-                                @method('POST')
+                                @method('PATCH')
 
                                 <div class="col-md-12">
                                     <div class="form-row m-1">
@@ -46,82 +46,66 @@
                                             NIK <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-md-10">
-                                            <input type="text" name="nik" class="form-control r-0 light s-12"
-                                                placeholder="Nomor Index KTP" autocomplete="off" minlength="16"
-                                                maxlength="16" required />
+                                            <input type="text" name="nik" value="{{ $pengunjung->nik }}"
+                                                class="form-control r-0 light s-12" minlength="16" maxlength="16"
+                                                required />
                                         </div>
                                     </div>
 
-                                    <div class="form-row m-1">
-                                        <label for="first_name" class="col-form-label s-12 col-md-2">
+                                    <div class="form-row m-1 text-left">
+                                        <label for="nama" class="col-form-label s-12 col-md-2">
                                             Nama <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-md-10">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <input type="text" name="first_name"
-                                                        class="form-control r-0 light s-12" placeholder="First Name"
-                                                        required />
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="text" name="last_name"
-                                                        class="form-control r-0 light s-12" placeholder="Last Name" />
-                                                </div>
-                                            </div>
+                                            <input type="text" name="nama" value="{{ $pengunjung->nama }}"
+                                                class="form-control r-0 light s-12" required />
                                         </div>
                                     </div>
 
                                     <div class="form-row m-1">
-                                        <label for="phone_number" class="col-form-label s-12 col-md-2">
+                                        <label for="telepon" class="col-form-label s-12 col-md-2">
                                             Telepon <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-md-10">
-                                            <input type="text" name="phone_number" class="form-control r-0 light s-12"
-                                                minlength="10" maxlength="14" required />
-                                        </div>
-                                    </div>
-
-                                    <div class="form-row m-1">
-                                        <label for="email" class="col-form-label s-12 col-md-2">
-                                            Email <span class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-md-10">
-                                            <input type="email" name="email" class="form-control r-0 light s-12"
+                                            <input type="text" name="telepon" value="{{ $pengunjung->telepon }}"
+                                                class="form-control r-0 light s-12" minlength="10" maxlength="14"
                                                 required />
                                         </div>
                                     </div>
 
                                     <div class="form-row m-1">
-                                        <label for="gender" class="col-form-label s-12 col-md-2">
+                                        <label for="jenis_kelamin" class="col-form-label s-12 col-md-2">
                                             Jenis Kelamin <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-md-10">
-                                            <select name="gender" class="form-control r-0 light s-12 m-0" required>
+                                            <select name="jenis_kelamin" class="form-control r-0 light s-12 m-0" required>
                                                 <option value="">Pilih</option>
-                                                <option value="L">Laki-Laki</option>
-                                                <option value="P">Perempuan</option>
+                                                <option value="L" @if ($pengunjung->jenis_kelamin == 'L') selected @endif>
+                                                    Laki-laki
+                                                </option>
+                                                <option value="P" @if ($pengunjung->jenis_kelamin == 'P') selected @endif>
+                                                    Perempuan
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="form-row m-1">
-                                        <label for="d_lahir" class="col-form-label s-12 col-md-2">
+                                        <label for="t_lahir" class="col-form-label s-12 col-md-2">
                                             Tanggal Lahir <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-md-10">
-                                            <input type="date" name="d_lahir"
-                                                class="form-control date-time-picker r-0 light s-12" autocomplete="off"
-                                                required />
+                                            <input type="date" name="t_lahir" value="{{ $pengunjung->t_lahir }}"
+                                                class="form-control r-0 light s-12" autocomplete="off" required />
                                         </div>
                                     </div>
 
-
                                     <div class="form-row m-1">
-                                        <label for="t_lahir" class="col-form-label s-12 col-md-2">
-                                            Tempat Lahir <span class="text-danger">*</span>
+                                        <label for="alamat" class="col-form-label s-12 col-md-2">
+                                            Alamat <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-md-10">
-                                            <textarea class="form-control r-5 light s-12" name="t_lahir" rows="2" required></textarea>
+                                            <textarea class="form-control r-5 light s-12" name="alamat" rows="2" required>{{ $pengunjung->alamat }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +118,6 @@
                                         </button>
                                     </div>
                                 </div>
-
                             </form>
                         </div>
                     </div>
@@ -142,21 +125,13 @@
             </div>
         </div>
     </div>
-    </div>
 @endsection
 
 @section('script')
-    <script src="{{ asset('backend/js/jquery-fancybox.min.js') }}"></script>
     <script src="{{ asset('backend/js/jquery-confirm.min.js') }}"></script>
+    <script src="{{ asset('backend/js/jquery-fancybox.min.js') }}"></script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('.date-time-picker').datetimepicker({
-                format: 'Y-m-d',
-                timepicker: false,
-            });
-        });
-
         $('#form').on('submit', function(event) {
             event.preventDefault();
             const form = $(this);

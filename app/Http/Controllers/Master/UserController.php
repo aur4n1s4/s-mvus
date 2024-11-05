@@ -24,7 +24,7 @@ class UserController extends Controller
         $user  = User::find($id);
         $roles = Role::all();
 
-        return view($this->view . 'user_edit', compact('route', 'title', 'subTitle', 'user', 'roles'));
+        return view($this->view . 'edit', compact('route', 'title', 'subTitle', 'user', 'roles'));
     }
 
     public function update(Request $request, $id)

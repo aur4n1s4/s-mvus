@@ -38,12 +38,12 @@ Route::namespace('Master')
         //=== User
         Route::prefix('user')->name('user.')
             ->group(function () {
-                Route::get('{id}/edit', 'EmployeeUserController@edit')->name('edit');
-                Route::patch('{id}/update', 'EmployeeUserController@update')->name('update');
-                Route::delete('{id}/destroy', 'EmployeeUserController@destroy')->name('destroy');
+                Route::get('{id}/edit', 'UserController@edit')->name('edit');
+                Route::patch('{id}/update', 'UserController@update')->name('update');
+                Route::delete('{id}/destroy', 'UserController@destroy')->name('destroy');
 
-                Route::get('{id}/role', 'EmployeeUserController@role')->name('role');
-                Route::delete('{name}/role', 'EmployeeUserController@roleDestroy')->name('role.destroy');
+                Route::get('{id}/role', 'UserController@role')->name('role');
+                Route::delete('{name}/role', 'UserController@roleDestroy')->name('role.destroy');
             });
 
         //=== Group Role & Permission
@@ -127,6 +127,7 @@ Route::prefix('pengunjung')
         Route::get('index', 'PengunjungController@index')->name('index');
         Route::get('create', 'PengunjungController@create')->name('create');
         Route::post('store', 'PengunjungController@store')->name('store');
+        Route::get('{id}/show', 'PengunjungController@show')->name('show');
         Route::get('{id}/edit', 'PengunjungController@edit')->name('edit');
         Route::patch('{id}/update', 'PengunjungController@update')->name('update');
         Route::delete('{id}/destroy', 'PengunjungController@destroy')->name('destroy');

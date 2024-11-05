@@ -58,7 +58,10 @@ class PegawaiController extends Controller
             'd_lahir'      => $request->d_lahir,
         ]);
 
-        return response('Data pegawi berhasi disimpan.', Response::HTTP_OK);
+        return response()->json([
+            'status'  => 1,
+            'message' => 'Berhasil menyimpan data.'
+        ]);
     }
 
     public function edit($id)
@@ -66,6 +69,7 @@ class PegawaiController extends Controller
         $route     = $this->route;
         $title     = $this->title;
         $subTitle  = $this->subTitle;
+
         $pegawai   = Pegawai::find($id);
 
         return view($this->view . 'edit', compact('route', 'title', 'subTitle', 'pegawai'));
@@ -95,7 +99,15 @@ class PegawaiController extends Controller
             'd_lahir'      => $request->d_lahir,
         ]);
 
-        return response('Data pegawi berhasi diperbaharui.', Response::HTTP_OK);
+        return response()->json([
+            'status'  => 1,
+            'message' => 'Data berhasil di perbaharui.',
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        return Pegawai::findOrFail($id)->delete();
     }
 
     public function addUser($employeId)
@@ -122,9 +134,9 @@ class PegawaiController extends Controller
             ->addIndexColumn()
             ->editColumn('user', function ($p) {
                 if ($p->user_id == "") {
-                    return "Tidak <a  onclick='addUser(this)' title='Hapus' data-url='" . route($this->route . 'addUser', $p->id) . "' class='float-right text-success' title='Tambah sebagai pengguna aplikasi'><i class='icon-user-plus'></i></a>";
+                    return "Tidak <a onclick='addUser(this)' title='Hapus' data-url='" . route($this->route . 'addUser', $p->id) . "' class='float-right text-success' title='Tambah sebagai pengguna aplikasi'><i class='icon-user-plus'></i></a>";
                 } else {
-                    return "Ya <a href='" . route($this->route . 'user.edit', $p->user_id) . "' class='float-right' title='Edit akun user'><i class='icon-user'></i></a>";
+                    return "Ya <a href='" . route('user.edit', $p->user_id) . "' class='float-right' title='Edit akun user'><i class='icon-user'></i></a>";
                 }
             })
             ->addColumn('action', function ($p) {

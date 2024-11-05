@@ -96,5 +96,40 @@
                 }
             ]
         });
+
+        function remove(e) {
+            $.confirm({
+                title: '',
+                content: 'Apakah Anda yakin akan menghapus data ini?',
+                icon: 'icon icon-question amber-text',
+                theme: 'modern',
+                closeIcon: true,
+                animation: 'scale',
+                type: 'red',
+                buttons: {
+                    ok: {
+                        text: "ok!",
+                        btnClass: 'btn-primary',
+                        keys: ['enter'],
+                        action: function() {
+                            $.ajax({
+                                url: $(e).data('url'),
+                                type: "POST",
+                                data: {
+                                    '_method': 'DELETE',
+                                    '_token': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                success: function(data) {
+                                    table.api().ajax.reload();
+                                },
+                                error: function() {
+                                    reload();
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        }
     </script>
 @endsection

@@ -29,6 +29,7 @@
                 </ul>
             </li>
         @endcan
+
         @can('pegawai')
             <li>
                 <a href="{{ route('pegawai.index') }}">
@@ -36,20 +37,26 @@
                 </a>
             </li>
         @endcan
+    @endcan
 
+    @can('poli')
         <li>
             <a href="{{ route('poli.index') }}">
                 <i class="icon icon-document text-blue s-18"></i> <span>Poli</span>
             </a>
         </li>
+    @endcan
 
+    @can('pengunjung')
         <li>
             <a href="{{ route('pengunjung.index') }}">
                 <i class="icon icon-document text-blue s-18"></i>
                 <span>Pengunjung</span>
             </a>
         </li>
+    @endcan
 
+    @can('antrian')
         <li>
             <a href="{{ route('antrian.index') }}">
                 <i class="icon icon-document text-blue s-18"></i>
@@ -57,4 +64,5 @@
             </a>
         </li>
     @endcan
+
 </ul>
