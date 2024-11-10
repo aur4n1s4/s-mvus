@@ -9,10 +9,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- <link rel="icon" href="{{ asset('backend/img/favicon.png') }}" type="image/x-icon"> --}}
     <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
+
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('backend/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/css/myStyle.css') }}">
+
     @yield('style')
+
+    @livewireStyles
+
     <style>
         .loader {
             position: fixed;
@@ -141,8 +146,11 @@
                 </div>
             </div>
         </div>
+
         @yield('content')
+
     </div>
+
     <!--/#app -->
     <script type="text/javascript">
         var APP_URL = '{!! json_encode(url('/') . '/') !!}';
@@ -150,7 +158,11 @@
     <script src="{{ asset('backend/js/app.js') }}"></script>
     <script src="{{ asset('backend/js/myScript.js') }}"></script>
     <script src="{{ asset('backend/js/treeview_menu.js') }}"></script>
+
+    @livewireScripts
+
     @yield('script')
+
 </body>
 
 </html>

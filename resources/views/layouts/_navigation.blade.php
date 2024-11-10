@@ -1,7 +1,7 @@
 <ul class="sidebar-menu">
     <li class="header"><strong>MAIN NAVIGATION</strong></li>
     <li>
-        <a href="#">
+        <a href="{{ route('home') }}">
             <i class="icon icon-sailing-boat-water purple-text s-18"></i> <span>Dashboard</span>
         </a>
     </li>

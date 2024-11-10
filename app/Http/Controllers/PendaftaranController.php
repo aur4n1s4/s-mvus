@@ -53,6 +53,13 @@ class PendaftaranController extends Controller
             'poli_id'       => 'required|exists:polis,id'
         ]);
 
+        // Mengecek registasi pasien lama
+        if ($request->cform == 2 && !Pengunjung::where('nik', $request->nik)->exists()) {
+            return redirect()
+                ->back()
+                ->with('error', 'Nik belum terdaftar, silahkan mengisi form pasien baru.');
+        }
+
         // Arahkan pengunjung ke form pendaftaran pasien lama
         if ($request->cform == 1 && Pengunjung::where('nik', $request->nik)->exists()) {
             return redirect()
