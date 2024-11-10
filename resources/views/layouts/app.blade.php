@@ -16,8 +16,6 @@
 
     @yield('style')
 
-    @livewireStyles
-
     <style>
         .loader {
             position: fixed;
@@ -158,8 +156,6 @@
     <script src="{{ asset('backend/js/app.js') }}"></script>
     <script src="{{ asset('backend/js/myScript.js') }}"></script>
     <script src="{{ asset('backend/js/treeview_menu.js') }}"></script>
-
-    @livewireScripts
 
     @yield('script')
 
