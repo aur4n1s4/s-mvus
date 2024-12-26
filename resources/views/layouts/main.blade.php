@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <title>E-PUSKESMAS</title>
+    <title>Puskesmas Pondok Benda</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="{{ asset('frontend/home/img/favicon.ico') }}" rel="icon">
+    <link href="{{ asset('frontend/favicon.ico') }}" rel="icon">
 
     <!-- Google Web Fonts -->
     <link href="{{ asset('frontend/css/font.css') }}" rel="stylesheet">
@@ -40,7 +40,9 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s">
         <a href="{{ url('/') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h1 class="m-0 text-primary"><i class="far fa-hospital me-3"></i>E-PUSKESMAS</h1>
+            <h2 class="m-0 text-primary">
+                UPTD PUSKESMAS
+            </h2>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -66,45 +68,37 @@
     <div class="container-fluid bg-dark text-light footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-5 col-md-6">
                     <h5 class="text-light mb-4">Alamat</h5>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Wonosobo, Jawa Tengah</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Jl. Benda Barat No. 14 A, Perum Pamulang
+                        Permai 2, Pondok Benda, Pamulang, Kota
+                        Tangerang Selatan</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+62823-1136-6261</p>
+                    <p class="mb-2 s-12"><i class="fa fa-envelope me-3"></i>pengaduanpkmpondokbenda@yahoo.com</p>
                     <div class="d-flex pt-2">
-                        <a class="btn btn-outline-light btn-social rounded-circle" href=""><i
-                                class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-social rounded-circle" href=""><i
-                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social rounded-circle"
+                            href="https://www.instagram.com/puskesmaspondokbenda/"><i class="fab fa-instagram"></i></a>
                         <a class="btn btn-outline-light btn-social rounded-circle" href=""><i
                                 class="fab fa-youtube"></i></a>
-                        <a class="btn btn-outline-light btn-social rounded-circle" href=""><i
-                                class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h5 class="text-light mb-4">Pelayanan</h5>
-                    <a class="btn btn-link">Cardiology</a>
-                    <a class="btn btn-link">Pulmonary</a>
-                    <a class="btn btn-link">Neurology</a>
-                    <a class="btn btn-link">Orthopedics</a>
-                    <a class="btn btn-link">Laboratory</a>
+                    <a class="btn btn-link">Umum</a>
+                    <a class="btn btn-link">Gizi</a>
+                    <a class="btn btn-link">KIA</a>
+                    <a class="btn btn-link">Catin</a>
+                    <a class="btn btn-link">KB, IVA Test, dan Tindik Bayi</a>
+                    <a class="btn btn-link">TB</a>
+                    <a class="btn btn-link">Imunisasi</a>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="text-light mb-4">Kunjungi</h5>
-                    <a class="btn btn-link" href="{{ url('/about') }}">Tentang Kami</a>
-                    <a class="btn btn-link" href="{{ url('/service') }}">Layanan Kami</a>
-                    <a class="btn btn-link" href="{{ url('/contact') }}">Hubungi Kami</a>
-                    <a class="btn btn-link" href="{{ url('/pendaftaran') }}">Pendaftaran Pasien</a>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="text-light mb-4">Newsletter</h5>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="text-light mb-4">Lokasi</h5>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text"
-                            placeholder="Your email">
-                        <button type="button"
-                            class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.3825529706583!2d106.70703902936096!3d-6.325261399999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e569a29ac027%3A0x6c3105df7808c997!2sPuskesmas%20Pondok%20Benda!5e0!3m2!1sid!2sid!4v1732347015936!5m2!1sid!2sid"
+                            width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -116,8 +110,6 @@
                         &copy; <a class="border-bottom" href="#">E-Puskesmas</a>, All Right Reserved.
                     </div>
                     <div class="col-md-6 text-center text-md-end">
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
                     </div>
                 </div>
             </div>

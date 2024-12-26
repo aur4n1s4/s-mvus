@@ -90,7 +90,7 @@ class PoliController extends Controller
      */
     public function destroy($id)
     {
-        Poli::findOrFail($id)->delete();
+        return Poli::findOrFail($id)->delete();
     }
 
     public function api()

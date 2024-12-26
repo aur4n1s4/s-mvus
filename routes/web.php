@@ -104,6 +104,17 @@ Route::namespace('Master')
             Route::delete('{id}/destroy', 'PoliController@destroy')->name('destroy');
             Route::get('api', 'PoliController@api')->name('api');
         });
+
+        //=== Doctor
+        Route::prefix('doctor')->name('doctor.')->group(function () {
+            Route::get('index', 'DoctorController@index')->name('index');
+            Route::get('create', 'DoctorController@create')->name('create');
+            Route::post('store', 'DoctorController@store')->name('store');
+            Route::get('{id}/edit', 'DoctorController@edit')->name('edit');
+            Route::patch('{id}/update', 'DoctorController@update')->name('update');
+            Route::delete('{id}/destroy', 'DoctorController@destroy')->name('destroy');
+            Route::get('api', 'DoctorController@api')->name('api');
+        });
     });
 
 Route::prefix('antrian')

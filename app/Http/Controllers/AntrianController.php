@@ -181,7 +181,17 @@ class AntrianController extends Controller
                 HTML;
                 return $status;
             })
-            ->rawColumns(['action', 'no_antrian', 'status'])
+            ->addColumn('call_pasien', function ($p) {
+                // Ambil nama pasien dan nama poliklinik
+                $text = $p->nama . ' - ' . $p->poli->nama;
+
+                if ($p->status == 0) {
+                    return '<a onclick="panggilPasien(\'' . $text . '\')" title="Panggil pasien"><i class="icon icon-volume-up text-red ml-1"></i></a>';
+                } else {
+                    return '<i class="icon icon-volume-up ml-1"></i>';
+                }
+            })
+            ->rawColumns(['action', 'no_antrian', 'status', 'call_pasien'])
             ->toJson();
     }
 

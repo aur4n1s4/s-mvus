@@ -18,24 +18,31 @@
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                     <div class="d-flex flex-column">
-                        <img class="img-fluid rounded w-75 align-self-end"
-                            src="{{ asset('frontend/home/img/about-1.jpg') }}" alt="">
-                        <img class="img-fluid rounded w-50 bg-white pt-3 pe-3"
-                            src="{{ asset('frontend/home/img/about-2.jpg') }}" alt="" style="margin-top: -25%;">
+                        <img class="img-fluid rounded" src="{{ asset('frontend/home/imgs/about-1.jpg') }}" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                     <p class="d-inline-block border rounded-pill py-1 px-4">Tentang Kami</p>
                     <h1 class="mb-4">Membangun Kesehatan Bersama Puskesmas, Kenali Layanan Kami!</h1>
-                    <p>Pusat Kesehatan Masyarakat adalah lembaga pelayanan kesehatan yang memberikan berbagai jenis
-                        pelayanan kesehatan dengan harga yang terjangkau dan mudah diakses oleh masyarakat.</p>
-                    <p class="mb-4">Memilih puskesmas yang tepat sangat penting untuk menjaga kesehatan keluarga.
-                        Datanglah ke Puskesmas kami untuk mendapatkan pelayanan kesehatanterbaik bagi Anda dan keluarga.</p>
+                    <p>
+                        UPTD Puskesmas Pondok Benda menyediakan layanan kesehatan dengan fasilitas rawat inap. Didirikan
+                        pada 11
+                        Februari 2011, Puskesmas ini telah memiliki izin operasional resmi dari Dinas Kesehatan
+                        Kota Tangerang Selatan berdasarkan SK Nomor 445.4/0009-DPMPTSP/OL/2018.
+                        Puskesmas Pondok Benda berlokasi di Jl. Benda Barat No. 14, Perum Pamulang Permai
+                        2, Kelurahan Pondok Benda, Kecamatan Pamulang, Kota Tangerang Selatan.
+                    </p>
+                    <p class="mb-4">
+                        Sebagai ujung tombak pelayanan kesehatan di tingkat pertama, melaksanakan berbagai upaya kesehatan
+                        masyarakat, baik yang bersifat
+                        esensial maupun pengembangan. Upaya pengembangan dilakukan melalui inovasi,
+                        ekstensifikasi, dan intensifikasi pelayanan sesuai dengan prioritas kesehatan masyarakat,
+                        karakteristik wilayah kerja, dan sumber daya yang tersedia.
+                    </p>
                     <p><i class="far fa-check-circle text-primary me-3"></i>Tim medis yang profesional dan terlatih</p>
                     <p><i class="far fa-check-circle text-primary me-3"></i>Fasilitas kesehatan yang lengkap</p>
                     <p><i class="far fa-check-circle text-primary me-3"></i>Pelayanan kesehatan terbaik dan ramah kepada
                         pasien</p>
-                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-3" href="">Read More</a>
                 </div>
             </div>
         </div>
@@ -106,62 +113,7 @@
                 <div class="col-lg-6 pe-lg-0 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
                     <div class="position-relative h-100">
                         <img class="position-absolute img-fluid w-100 h-100"
-                            src="{{ asset('frontend/home/img/feature.jpg') }}" style="object-fit: cover;" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <p class="d-inline-block border rounded-pill py-1 px-4">Dokter</p>
-                <h1>Tenaga Medis Berpengalaman</h1>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="team-item position-relative rounded overflow-hidden">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="{{ asset('frontend/home/img/team-1.jpg') }}" alt="">
-                        </div>
-                        <div class="team-text bg-light text-center p-4">
-                            <h5>Fitriani Kusumawati</h5>
-                            <p class="text-primary">Departemen Kesehatan Anak</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="team-item position-relative rounded overflow-hidden">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="{{ asset('frontend/home/img/team-2.jpg') }}" alt="">
-                        </div>
-                        <div class="team-text bg-light text-center p-4">
-                            <h5>Wijaya Pranata</h5>
-                            <p class="text-primary">Departemen Kesehatan Jiwa</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="team-item position-relative rounded overflow-hidden">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="{{ asset('frontend/home/img/team-3.jpg') }}" alt="">
-                        </div>
-                        <div class="team-text bg-light text-center p-4">
-                            <h5>Dina Ayuningtyas</h5>
-                            <p class="text-primary">Departemen Urologi</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="team-item position-relative rounded overflow-hidden">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="{{ asset('frontend/home/img/team-4.jpg') }}" alt="">
-                        </div>
-                        <div class="team-text bg-light text-center p-4">
-                            <h5>Ahmad Setiawan</h5>
-                            <p class="text-primary">Departemen Radiologi</p>
-                        </div>
+                            src="{{ asset('frontend/home/imgs/feature.jpg') }}" style="object-fit: cover;" alt="">
                     </div>
                 </div>
             </div>
