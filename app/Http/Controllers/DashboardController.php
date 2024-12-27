@@ -13,7 +13,7 @@ class DashboardController extends Controller
     public function index()
     {
         // Total pengunjung hari ini
-        $pengunjungHariIni = Antrian::whereDate('tanggal', Carbon::now())->count();
+        $pengunjungHariIni = Antrian::whereDate('tanggal', Carbon::today())->count();
 
         // Total pengunjung besok
         $pengunjungBesok = Antrian::whereDate('tanggal', Carbon::tomorrow())->count();

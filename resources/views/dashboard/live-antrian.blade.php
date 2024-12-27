@@ -115,7 +115,7 @@
                     }
 
                     // Update total antrian
-                    poliElement.find(".total-antrian").text(sprintf('%03s', poli.total_antrian));
+                    poliElement.find(".total-antrian").text(sprintf('%03', poli.total_antrian));
                 });
             },
             error: function() {
@@ -134,15 +134,10 @@
 
     // Format number with leading zero if less than 100
     function sprintf(fmt, val) {
-        // Pastikan val adalah angka atau string
-        val = val.toString(); // Convert val ke string, jika bukan string
-
+        val = val.toString(); // Convert val to string if it's not already
         return fmt.replace(/%(\d+)/g, function(_, len) {
-            // Pastikan len adalah angka
-            len = parseInt(len, 10);
-
-            // Pad angka atau string dengan nol di depan jika panjangnya kurang dari len
-            return val.padStart(len, '0');
+            len = parseInt(len, 10); // Ensure len is an integer
+            return val.padStart(len, '0'); // Pad the string to the desired length
         });
     }
 </script>
