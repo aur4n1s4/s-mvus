@@ -101,7 +101,7 @@
                     var poliElement = $("#poli-" + poli.id);
 
                     // Update nomor antrian
-                    poliElement.find(".current-antrian").text(poli.current_antrian > 0 ? sprintf('%03s', poli.current_antrian) : '---');
+                    poliElement.find(".current-antrian").text(poli.current_antrian > 0 ? sprintf('%03', poli.current_antrian) : '---');
 
                     // Update status badge
                     if (poli.current_antrian > 0) {
