@@ -24,7 +24,7 @@ class UserPermissionTableSeeder extends Seeder
         );
 
         $roles = ['superadmin'];
-        $data = ['master', 'role', 'pegawai', 'poli', 'pengunjung', 'antrian'];
+        $data = ['master', 'role', 'pegawai', 'poli', 'pengunjung', 'antrian', 'doctor'];
 
         // Membuat data permission jika belum ada
         foreach ($data as $permission) {

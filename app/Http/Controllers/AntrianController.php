@@ -183,7 +183,7 @@ class AntrianController extends Controller
             })
             ->addColumn('call_pasien', function ($p) {
                 // Ambil nama pasien dan nama poliklinik
-                $text = $p->nama . ' - ' . $p->poli->nama;
+                $text = $p->pengunjung->nama . ' - ' . $p->poli->nama;
 
                 if ($p->status == 0) {
                     return '<a onclick="panggilPasien(\'' . $text . '\')" title="Panggil pasien"><i class="icon icon-volume-up text-red ml-1"></i></a>';
