@@ -23,8 +23,7 @@
     <!-- Libraries Stylesheet -->
     <link href="{{ asset('frontend/home/lib/animate/animate.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/home/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('frontend/home/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}"
-        rel="stylesheet" />
+    <link href="{{ asset('frontend/home/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('frontend/home/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -53,6 +52,7 @@
                 <a href="{{ route('about') }}" class="nav-item nav-link">About</a>
                 <a href="{{ route('service') }}" class="nav-item nav-link">Service</a>
                 <a href="{{ route('dokter') }}" class="nav-item nav-link">Dokter</a>
+                <a href="{{ route('live-antrian') }}" class="nav-item nav-link">Live Antrian</a>
                 <a href="{{ route('contact') }}" class="nav-item nav-link">Contact</a>
             </div>
             <a href="{{ route('login') }}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">
@@ -76,10 +76,8 @@
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+62823-1136-6261</p>
                     <p class="mb-2 s-12"><i class="fa fa-envelope me-3"></i>pengaduanpkmpondokbenda@yahoo.com</p>
                     <div class="d-flex pt-2">
-                        <a class="btn btn-outline-light btn-social rounded-circle"
-                            href="https://www.instagram.com/puskesmaspondokbenda/"><i class="fab fa-instagram"></i></a>
-                        <a class="btn btn-outline-light btn-social rounded-circle" href=""><i
-                                class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social rounded-circle" href="https://www.instagram.com/puskesmaspondokbenda/"><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-outline-light btn-social rounded-circle" href=""><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -95,10 +93,7 @@
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-light mb-4">Lokasi</h5>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.3825529706583!2d106.70703902936096!3d-6.325261399999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e569a29ac027%3A0x6c3105df7808c997!2sPuskesmas%20Pondok%20Benda!5e0!3m2!1sid!2sid!4v1732347015936!5m2!1sid!2sid"
-                            width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.3825529706583!2d106.70703902936096!3d-6.325261399999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e569a29ac027%3A0x6c3105df7808c997!2sPuskesmas%20Pondok%20Benda!5e0!3m2!1sid!2sid!4v1732347015936!5m2!1sid!2sid" width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -119,8 +114,7 @@
 
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
-            class="bi bi-arrow-up"></i></a>
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
     <!-- JavaScript Libraries -->
     <script src="{{ asset('frontend/js/jquery-3.4.1.min.js') }}"></script>

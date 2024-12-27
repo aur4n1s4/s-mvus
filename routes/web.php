@@ -17,6 +17,8 @@ Route::get('/', 'DashboardController@index');
 Route::get('/about', 'DashboardController@about')->name('about');
 Route::get('/service', 'DashboardController@service')->name('service');
 Route::get('/dokter', 'DashboardController@dokter')->name('dokter');
+Route::get('/live-antrian', 'DashboardController@liveAntrian')->name('live-antrian');
+Route::get('/live-antrian/data', 'DashboardController@antrianApi')->name('live-antrian.data');
 Route::get('/kontak', 'DashboardController@contact')->name('contact');
 
 Route::prefix('pendaftaran')->name('pendaftaran.')->group(function () {
