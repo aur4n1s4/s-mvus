@@ -46,7 +46,9 @@
                     </div>
                     <div class="ms-4">
                         <p class="mb-2">Mail Us Now</p>
-                        <h5 class="mb-0">pengaduanpkmpondokbenda@yahoo.com</h5>
+                        <h5 class="mb-0" style="word-wrap: break-word; max-width: 200px;">
+                            pengaduanpkmpondokbenda@yahoo.com
+                        </h5>
                     </div>
                 </div>
             </div>
