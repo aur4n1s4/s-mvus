@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Antrian;
+use App\Models\Pengunjung;
 use App\Models\Poli;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class AntrianController extends Controller
@@ -37,7 +39,13 @@ class AntrianController extends Controller
      */
     public function create()
     {
-        //
+        $route    = $this->route;
+        $title    = $this->title;
+        $subTitle = $this->subTitle;
+
+        $polis  = Poli::all();
+
+        return view($this->view . 'add', compact('route', 'title', 'subTitle', 'polis'));
     }
 
     /**
@@ -48,7 +56,75 @@ class AntrianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nik'           => 'required',
+            'pasien'        => 'required|in:0,1',
+            'nama'          => 'required_if:pasien,1',
+            'faskes'        => 'required_if:pasien,1|required_if:pasien,0|in:0,1',
+            'alamat'        => 'required_if:pasien,1',
+            'telepon'       => 'required_if:pasien,1',
+            't_lahir'       => 'required_if:pasien,1',
+            'jenis_kelamin' => 'required_if:pasien,1',
+            'tanggal'       => 'required',
+            'poli'          => 'required|exists:polis,id',
+            'bpjs'          => 'required_if:faskes,1',
+        ]);
+
+        // Arahkan pengunjung ke form pendaftaran pasien lama
+
+        if ($request->pasien == 0 && !Pengunjung::where('nik', $request->nik)->exists()) {
+            return response('Nik belum terdaftar, silahkan mengisi form pasien baru.', 404);
+        }
+
+        // Mengecek registasi pasien lama
+        if ($request->pasien == 1 && Pengunjung::where('nik', $request->nik)->exists()) {
+            return redirect('NIK sudah terdaftar, silakan mengisi form pasien lama.', 400);
+        }
+
+        // Mengecek pengunjung yang membuat antrian di tanggal yang sama
+        $exists = Antrian::whereHas('pengunjung', function ($query) use ($request) {
+            $query->where('nik', $request->nik);
+        })
+            ->whereDate('tanggal', $request->tgl_kunjung)
+            ->exists();
+
+        if ($exists) {
+            return response('Pengunjung dengan NIK yang sama sudah terdaftar hari ini.', 422);
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $noAntrian = (Antrian::where('poli_id', $request->poli_id)->whereDate('tanggal', $request->tgl_kunjung)->max('no_antrian') ?? 0) + 1;
+
+            $pengunjung = Pengunjung::where('nik', $request->nik)->first();
+
+            if ($pengunjung == null) {
+                $pengunjung = Pengunjung::create([
+                    'nik'           => $request->nik,
+                    'nama'          => $request->nama,
+                    'alamat'        => $request->alamat,
+                    'telepon'       => $request->telepon,
+                    't_lahir'       => $request->t_lahir,
+                    'jenis_kelamin' => $request->jenis_kelamin,
+                ]);
+            }
+
+            $pengunjung->antrians()->create([
+                'no_antrian'   => $noAntrian,
+                'tanggal'      => $request->tanggal,
+                'status'       => 0,
+                'poli_id'      => $request->poli,
+                'faskes'       => $request->faskes,
+                'bpjs'         => $request->bpjs
+            ]);
+
+            DB::commit();
+            return response('Antrian berhasil dibuat!');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
     }
 
     /**
@@ -70,7 +146,14 @@ class AntrianController extends Controller
      */
     public function edit($id)
     {
-        //
+        $route    = $this->route;
+        $title    = $this->title;
+        $subTitle = $this->subTitle;
+
+        $antrian  = Antrian::with('pengunjung')->whereid($id)->first();
+        $polis  = Poli::all();
+
+        return view($this->view . 'edit', compact('route', 'title', 'subTitle', 'antrian', 'polis'));
     }
 
     /**
@@ -82,7 +165,56 @@ class AntrianController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'faskes' => 'required|in:0,1',
+            'tanggal' => 'required',
+            'poli' => 'required'
+        ]);
+
+        // Menemukan antrian berdasarkan ID
+        $antrian = Antrian::find($id);
+
+        if (!$antrian) {
+            return response('Antrian tidak ditemukan.', 404);
+        }
+
+        // Mengecek jika pasien ingin melakukan reschedule pada tanggal yang sama
+        $exists = Antrian::whereHas('pengunjung', function ($query) use ($request) {
+            $query->where('nik', $request->nik);
+        })
+            ->whereDate('tanggal', $request->tanggal)
+            ->where('id', '!=', $id) // Menghindari konflik dengan antrian yang sedang diupdate
+            ->exists();
+
+        if ($exists) {
+            return response('Pengunjung dengan NIK yang sama sudah terdaftar di tanggal ini.', 422);
+        }
+
+        // Jika pasien ingin di-reschedule, perbarui data antrian
+        try {
+            DB::beginTransaction();
+
+            // Menentukan nomor antrian baru berdasarkan poli dan tanggal yang sama
+            $noAntrian = (Antrian::where('poli_id', $request->poli)
+                ->whereDate('tanggal', $request->tanggal)
+                ->max('no_antrian') ?? 0) + 1;
+
+            // Update data antrian
+            $antrian->update([
+                'no_antrian'   => $noAntrian,
+                'tanggal'      => $request->tanggal,
+                'status'       => 0, // Status bisa diubah sesuai kebutuhan (misal: 0 untuk pending)
+                'poli_id'      => $request->poli,
+                'faskes'       => $request->faskes,
+                'bpjs'         => $request->bpjs // Biarkan tidak berubah jika BPJS tidak diinput
+            ]);
+
+            DB::commit();
+            return response('Antrian berhasil di-update!');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
     }
 
     /**
@@ -93,7 +225,7 @@ class AntrianController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Antrian::find($id)->delete();
     }
 
     public function api(Request $request)
@@ -123,7 +255,7 @@ class AntrianController extends Controller
         return DataTables::of($antrians)
             ->addIndexColumn()
             ->addColumn('action', function ($p) {
-                $btnEdit = "<a href='#' onclick='edit(this)' title='Edit' data-url='" . route($this->route . 'edit', $p->id) . "'><i class='icon icon-pencil text-blue mr-1'></i></a>";
+                $btnEdit = "<a href='" . route($this->route . 'edit', $p->id) . "' title='Edit'><i class='icon icon-pencil text-blue mr-1'></i></a>";
 
                 $btnDelete = "<a onclick='remove(this)' title='Hapus' data-url='" . route($this->route . 'destroy', $p->id) . "'><i class='icon icon-remove text-red ml-1'></i></a>";
 
@@ -191,7 +323,14 @@ class AntrianController extends Controller
                     return '<i class="icon icon-volume-up ml-1"></i>';
                 }
             })
-            ->rawColumns(['action', 'no_antrian', 'status', 'call_pasien'])
+            ->editColumn('jaminan', function ($p) {
+                if ($p->faskes == 1) {
+                    return "<span class='badge badge-success'>BPJS</span>";
+                } else {
+                    return "<span class='badge badge-primary'>UMUM</span>";
+                }
+            })
+            ->rawColumns(['action', 'no_antrian', 'status', 'call_pasien', 'jaminan'])
             ->toJson();
     }
 

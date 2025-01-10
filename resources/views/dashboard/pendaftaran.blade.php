@@ -76,6 +76,37 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-floating">
+                                                <select name="faskes" id="faskes"
+                                                    class="form-select border-0 @error('faskes') is-invalid @enderror"
+                                                    required>
+                                                    <option selected>Pilih Jenis Jaminan</option>
+                                                    <option value="0">Umum</option>
+                                                    <option value="1">BPJS</option>
+                                                </select>
+                                                @error('faskes')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        {{ $message }}
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 bpjs" style="display: none">
+                                            <div class="form-floating">
+                                                <input type="text" name="bpjs" id="bpjs"
+                                                    class="form-control @error('bpjs') is-invalid @enderror"
+                                                    placeholder="Nomor BPJS" value="{{ old('bpjs') }}">
+                                                <label for="bpjs">Nomor BPJS</label>
+                                                @error('bpjs')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        {{ $message }}
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-floating">
                                                 <input type="text" name="nama" id="nama" required
                                                     class="form-control @error('nama') is-invalid @enderror"
                                                     placeholder="Nama Anda" value="{{ old('nama') }}">
@@ -203,6 +234,37 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <select name="faskes" id="faskes_lama"
+                                                    class="form-select border-0 @error('faskes') is-invalid @enderror"
+                                                    required>
+                                                    <option selected>Pilih Jenis Jaminan</option>
+                                                    <option value="0">Umum</option>
+                                                    <option value="1">BPJS</option>
+                                                </select>
+                                                @error('faskes')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        {{ $message }}
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 bpjs_lama" style="display: none">
+                                            <div class="form-floating">
+                                                <input type="text" name="bpjs" id="bpjs_nama"
+                                                    class="form-control @error('bpjs') is-invalid @enderror"
+                                                    placeholder="Nomor BPJS" value="{{ old('bpjs') }}">
+                                                <label for="bpjs_lama">Nomor BPJS</label>
+                                                @error('bpjs')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        {{ $message }}
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
                                         <div class="col-md-12">
                                             <div class="form-floating">
                                                 <input required type="date"
@@ -311,29 +373,28 @@
 
 @section('script')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#form-status').on('submit', function(event) {
-                event.preventDefault();
-                const form = $(this);
-                const submitButton = form.find('#action');
-                const alert = form.find('#alert');
+        $('#form-status').on('submit', function(event) {
+            event.preventDefault();
+            const form = $(this);
+            const submitButton = form.find('#action');
+            const alert = form.find('#alert');
 
-                if (!form[0].checkValidity()) {
-                    event.stopPropagation();
-                } else {
-                    alert.html('');
-                    submitButton.prop('disabled', true);
+            if (!form[0].checkValidity()) {
+                event.stopPropagation();
+            } else {
+                alert.html('');
+                submitButton.prop('disabled', true);
 
-                    $.ajax({
-                        url: form.data('url'),
-                        type: 'POST',
-                        data: new FormData(form[0]),
-                        contentType: false,
-                        processData: false,
-                        success: function(response) {
-                            submitButton.prop('disabled', false);
+                $.ajax({
+                    url: form.data('url'),
+                    type: 'POST',
+                    data: new FormData(form[0]),
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        submitButton.prop('disabled', false);
 
-                            $('#status-result').html(`
+                        $('#status-result').html(`
                                  <div class="alert alert-info">
                                     <h4>Informasi Antrian:</h4>
                                     <p>Nomor Antrian: ${response.data.nomor}</p>
@@ -343,30 +404,30 @@
                                     <a href="${response.data.link}" target='_blank'>Cetak Antrian</a>
                                 </div>
                                 `);
-                        },
-                        error: function(xhr) {
-                            $('#action').removeAttr('disabled');
-                            $('#status-result').html('');
+                    },
+                    error: function(xhr) {
+                        $('#action').removeAttr('disabled');
+                        $('#status-result').html('');
 
-                            let errorMessages = '';
+                        let errorMessages = '';
 
-                            // Cek apakah ada pesan error validasi atau hanya pesan umum
-                            if (xhr.responseJSON) {
-                                if (xhr.responseJSON.errors) {
-                                    const errors = xhr.responseJSON.errors;
-                                    errorMessages = Object.values(errors).map(error =>
-                                        `<li>${error}</li>`).join('');
-                                } else if (xhr.responseJSON.message) {
-                                    // Jika tidak ada `errors`, tetapi ada `message`, tampilkan pesan ini
-                                    errorMessages = `<li>${xhr.responseJSON.message}</li>`;
-                                }
-                            } else {
-                                errorMessages =
-                                    `<li>Terjadi kesalahan. Silakan coba lagi.</li>`;
+                        // Cek apakah ada pesan error validasi atau hanya pesan umum
+                        if (xhr.responseJSON) {
+                            if (xhr.responseJSON.errors) {
+                                const errors = xhr.responseJSON.errors;
+                                errorMessages = Object.values(errors).map(error =>
+                                    `<li>${error}</li>`).join('');
+                            } else if (xhr.responseJSON.message) {
+                                // Jika tidak ada `errors`, tetapi ada `message`, tampilkan pesan ini
+                                errorMessages = `<li>${xhr.responseJSON.message}</li>`;
                             }
+                        } else {
+                            errorMessages =
+                                `<li>Terjadi kesalahan. Silakan coba lagi.</li>`;
+                        }
 
-                            // Tampilan pesan error dengan styling yang lebih bersih
-                            const alertMessage = `
+                        // Tampilan pesan error dengan styling yang lebih bersih
+                        const alertMessage = `
                                 <div role="alert" class="alert alert-danger alert-dismissible fade show">
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     <strong>Error:</strong> Terdapat kesalahan dalam input data.
@@ -374,12 +435,30 @@
                                 </div>
                             `;
 
-                            $('#alert').html(alertMessage);
-                        }
-                    });
-                }
-                form.addClass('was-validated');
-            });
+                        $('#alert').html(alertMessage);
+                    }
+                });
+            }
+            form.addClass('was-validated');
+        });
+
+        $('#faskes').on('change', function() {
+            const selected = $(this).find(':selected').val();
+
+            if (selected == 1) {
+                $('.bpjs').show();
+            } else {
+                $('.bpjs').hide();
+            }
+        });
+        $('#faskes_lama').on('change', function() {
+            const selected = $(this).find(':selected').val();
+
+            if (selected == 1) {
+                $('.bpjs_lama').show();
+            } else {
+                $('.bpjs_lama').hide();
+            }
         });
     </script>
 @endsection

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Antrian extends Model
 {
-    protected $fillable = ['no_antrian', 'tanggal', 'status', 'pengunjung_id', 'poli_id'];
+    protected $fillable = ['no_antrian', 'tanggal', 'status', 'pengunjung_id', 'poli_id', 'faskes', 'bpjs'];
 
     public function pengunjung()
     {

@@ -50,7 +50,9 @@ class PendaftaranController extends Controller
             't_lahir'       => 'required_if:cform,1|date_format:Y-m-d',
             'jenis_kelamin' => 'required_if:cform,1|in:L,P',
             'tgl_kunjung'   => 'required|date_format:Y-m-d',
-            'poli_id'       => 'required|exists:polis,id'
+            'poli_id'       => 'required|exists:polis,id',
+            'faskes'        => 'required|in:0,1',
+            'bpjs'         => 'required_if:faskes,1',
         ]);
 
         // Mengecek registasi pasien lama
@@ -94,7 +96,7 @@ class PendaftaranController extends Controller
                     'alamat'        => $request->alamat,
                     'telepon'       => $request->telepon,
                     't_lahir'       => $request->t_lahir,
-                    'jenis_kelamin' => $request->jenis_kelamin
+                    'jenis_kelamin' => $request->jenis_kelamin,
                 ]);
             }
 
@@ -102,7 +104,9 @@ class PendaftaranController extends Controller
                 'no_antrian'   => $noAntrian,
                 'tanggal'      => $request->tgl_kunjung,
                 'status'       => 0,
-                'poli_id'      => $request->poli_id
+                'poli_id'      => $request->poli_id,
+                'faskes'       => $request->faskes,
+                'bpjs'         => $request->bpjs
             ]);
 
             DB::commit();
