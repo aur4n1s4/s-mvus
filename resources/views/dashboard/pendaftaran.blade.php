@@ -103,6 +103,7 @@
                                                     </span>
                                                 @enderror
                                             </div>
+                                            <small class="text-muted">Pastikan BPJS anda di Puskesmas Pondok Benda</small>
                                         </div>
 
                                         <div class="col-12">
@@ -263,6 +264,7 @@
                                                     </span>
                                                 @enderror
                                             </div>
+                                            <small class="text-muted">Pastikan BPJS anda di Puskesmas Pondok Benda</small>
                                         </div>
 
                                         <div class="col-md-12">
