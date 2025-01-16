@@ -363,7 +363,7 @@
                     <div class="h-100" style="min-height: 400px;">
                         <div class="position-relative h-100">
                             <img class="position-absolute img-fluid w-100 h-100"
-                                src="{{ asset('frontend/home/img/feature.jpg') }}" style="object-fit: cover;"
+                                src="{{ asset('frontend/home/imgs/loket.jpeg') }}" style="object-fit: cover;"
                                 alt="">
                         </div>
                     </div>

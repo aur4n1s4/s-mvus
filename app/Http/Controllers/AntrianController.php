@@ -315,7 +315,7 @@ class AntrianController extends Controller
             })
             ->addColumn('call_pasien', function ($p) {
                 // Ambil nama pasien dan nama poliklinik
-                $text = $p->pengunjung->nama . ' - ' . $p->poli->nama;
+                $text = $p->pengunjung->nama . ' Nomor Antrian' . $this->angkaKeKata($p->no_antrian);
 
                 if ($p->status == 0) {
                     return '<a onclick="panggilPasien(\'' . $text . '\')" title="Panggil pasien"><i class="icon icon-volume-up text-red ml-1"></i></a>';
@@ -354,5 +354,34 @@ class AntrianController extends Controller
                 'status' => $antrian->status,
             ]
         ]);
+    }
+
+    private
+    function angkaKeKata($angka)
+    {
+        $huruf = [
+            "", "satu", "dua", "tiga", "empat", "lima",
+            "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas"
+        ];
+
+        if ($angka < 12) {
+            return $huruf[$angka];
+        } elseif ($angka < 20) {
+            return $this->angkaKeKata($angka - 10) . " belas";
+        } elseif ($angka < 100) {
+            return $this->angkaKeKata(intval($angka / 10)) . " puluh " . $this->angkaKeKata($angka % 10);
+        } elseif ($angka < 200) {
+            return "seratus " . $this->angkaKeKata($angka - 100);
+        } elseif ($angka < 1000) {
+            return $this->angkaKeKata(intval($angka / 100)) . " ratus " . $this->angkaKeKata($angka % 100);
+        } elseif ($angka < 2000) {
+            return "seribu " . $this->angkaKeKata($angka - 1000);
+        } elseif ($angka < 1000000) {
+            return $this->angkaKeKata(intval($angka / 1000)) . " ribu " . $this->angkaKeKata($angka % 1000);
+        } elseif ($angka < 1000000000) {
+            return $this->angkaKeKata(intval($angka / 1000000)) . " juta " . $this->angkaKeKata($angka % 1000000);
+        } else {
+            return "Angka terlalu besar";
+        }
     }
 }

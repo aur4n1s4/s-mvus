@@ -64,6 +64,23 @@ class DashboardController extends Controller
             return $poli;
         });
 
+        // Tambahkan total keseluruhan
+        $totalAntrian = $antrianPolis->sum('total_antrian');
+
+        $antrianPolis->push((object)[
+            'id' => -1,
+            'nama' => 'total',
+            'keterangan' => 'Total',
+            'created_at' => now(),
+            'updated_at' => now(),
+            'total_antrian' => $totalAntrian,
+            'color' => 'danger',
+            'current_antrian' => 0,
+            'antrians' => collect([]),
+        ]);
+
+        // return $antrianPolis;
+
         return view('dashboard.live-antrian', compact('antrianPolis'));
     }
 
@@ -85,6 +102,21 @@ class DashboardController extends Controller
             $poli->current_antrian = $poli->antrians->pluck('no_antrian')->first() ?? 0;
             return $poli;
         });
+
+        // Tambahkan total keseluruhan
+        $totalAntrian = $antrianPolis->sum('total_antrian');
+
+        $antrianPolis->push((object)[
+            'id' => -1,
+            'nama' => 'total',
+            'keterangan' => 'Total',
+            'created_at' => now(),
+            'updated_at' => now(),
+            'total_antrian' => $totalAntrian,
+            'color' => 'danger',
+            'current_antrian' => 0,
+            'antrians' => collect([]),
+        ]);
 
         return response()->json($antrianPolis);
     }
