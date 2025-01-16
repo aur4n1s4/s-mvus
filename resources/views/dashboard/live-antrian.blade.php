@@ -29,7 +29,7 @@
             </div>
             <div class="row g-4 text-center">
                 @foreach ($antrianPolis as $key => $poli)
-                    <div class="col-lg-4 col-md-6 mb-4" id="poli-{{ $poli->id ?? '-' }}">
+                    <div class="col-lg-6 col-md-6 mb-4" id="poli-{{ $poli->id ?? '-' }}">
                         <div class="service-item bg-white shadow-lg rounded h-100 p-4 position-relative"
                             style="border-top: 4px solid {{ $poli->current_antrian > 0 ? '#28a745' : '#dc3545' }};">
                             <div class="d-flex justify-content-between align-items-center mb-3">
