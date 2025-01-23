@@ -120,7 +120,7 @@
             <div class="text-center">
                 <img src="backend/img/dummy/u4.png" alt="">
                 <h3 class="mt-2">Welcome Back</h3>
-                <p class="p-t-b-20">Hey Admin Network Service Enginering </p>
+                <p class="p-t-b-20">Hey Administratro </p>
             </div>
 
 
