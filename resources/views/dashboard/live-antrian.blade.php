@@ -42,6 +42,8 @@
                                 @endif
                             </div>
                             @if ($poli->nama != 'total')
+                                <p class="mb-2 mt-2 fs-5 text-center text-secondary">Sedang Dalam Pemeriksaan</p>
+
                                 <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle shadow-sm mb-4"
                                     style="width: 90px; height: 90px;">
                                     <h2 class="mb-0 fw-bold text-primary current-antrian">
