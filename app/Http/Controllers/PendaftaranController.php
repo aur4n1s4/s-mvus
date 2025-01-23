@@ -168,44 +168,51 @@ class PendaftaranController extends Controller
     {
         $this->validate($request, [
             'nik'           => 'required|digits:16',
-            'tgl_kunjung'   => 'required|date_format:Y-m-d',
         ]);
 
-        $antrian = Antrian::whereHas('pengunjung', function ($query) use ($request) {
+        $antrians = Antrian::whereHas('pengunjung', function ($query) use ($request) {
             $query->where('nik', $request->nik);
         })
-            ->whereDate('tanggal', $request->tgl_kunjung)
-            ->first();
+            ->where('status', 0)
+            ->get();
 
-        if (!$antrian) {
+
+        if (!$antrians) {
             return response()->json([
                 'status'  => false,
                 'message' => 'Tidak ditemukan antrian',
             ], 404);
         }
 
-        $statusAntrian = '-';
+        $data = [];
 
-        if ($antrian->status == 0) {
-            $statusAntrian = 'Menunggu pemeriksaan';
-        } else if ($antrian->status == 1) {
-            $statusAntrian = 'Dalam pemeriksaan';
-        } else if ($antrian->status == 2) {
-            $statusAntrian = 'Selesai pemeriksaan';
-        } else {
-            $statusAntrian = 'Tidak ada status!';
+        foreach ($antrians as $antrian) {
+            $statusAntrian = '-';
+
+            if ($antrian->status == 0) {
+                $statusAntrian = 'Menunggu pemeriksaan';
+            } else if ($antrian->status == 1) {
+                $statusAntrian = 'Dalam pemeriksaan';
+            } else if ($antrian->status == 2) {
+                $statusAntrian = 'Selesai pemeriksaan';
+            } else {
+                $statusAntrian = 'Tidak ada status!';
+            }
+
+            $data[] = [
+                'nomor'   => $antrian->no_antrian,
+                'tanggal' => Carbon::parse($antrian->tanggal)->format('d-m-Y'),
+                'status'  => $statusAntrian,
+                'poli_id' => $antrian->poli->id,
+                'poli'    => $antrian->poli->nama,
+                'link'    => route('pendaftaran.cetak', $antrian->id),
+            ];
         }
 
         return response()->json([
             'status'  => true,
             'message' => 'Antrian ditemukan',
-            'data'    => [
-                'nomor'   => $antrian->no_antrian,
-                'tanggal' => Carbon::parse($antrian->tanggal)->format('d-m-Y'),
-                'status'  => $statusAntrian,
-                'poli'    => $antrian->poli->nama,
-                'link'    => route('pendaftaran.cetak', $antrian->id),
-            ]
+            'data'    => $data,
         ]);
     }
 

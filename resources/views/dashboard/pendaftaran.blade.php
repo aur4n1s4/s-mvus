@@ -329,22 +329,6 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="form-floating">
-                                                <input required type="date"
-                                                    class="form-control @error('tgl_kunjung') is-invalid @enderror"
-                                                    id="tgl_kunjung_lama" name="tgl_kunjung"
-                                                    min="{{ Carbon\Carbon::now()->format('Y-m-d') }}"
-                                                    value="{{ old('tgl_kunjung') }}">
-                                                <label for="tgl_kunjung_lama">Tanggal Kunjungan</label>
-
-                                                @error('tgl_kunjung')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        {{ $message }}
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
                                         <div class="col-12">
                                             <button type="submit" id="action" class="btn btn-primary w-100 py-3">Cek
                                                 Status</button>
@@ -396,16 +380,38 @@
                     success: function(response) {
                         submitButton.prop('disabled', false);
 
-                        $('#status-result').html(`
-                                 <div class="alert alert-info">
-                                    <h4>Informasi Antrian:</h4>
-                                    <p>Nomor Antrian: ${response.data.nomor}</p>
-                                    <p>Tanggal: ${response.data.tanggal}</p>
-                                    <p>Status: ${response.data.status}</p>
-                                    <p>Poliklinik: ${response.data.poli}</p>
-                                    <a href="${response.data.link}" target='_blank'>Cetak Antrian</a>
-                                </div>
-                                `);
+                        // Kelompokkan data berdasarkan poli_id
+                        const groupedData = response.data.reduce((acc, item) => {
+                            if (!acc[item.poli_id]) {
+                                acc[item.poli_id] = {
+                                    poli: item.poli,
+                                    antrian: []
+                                };
+                            }
+                            acc[item.poli_id].antrian.push(item);
+                            return acc;
+                        }, {});
+
+                        let htmlContent = '';
+
+                        // Iterasi setiap poli dan tampilkan antriannya
+                        Object.values(groupedData).forEach(group => {
+                            htmlContent += `<div class="alert alert-info" style="margin-bottom: 15px;">
+                            <h4>${group.poli}:</h4>`;
+
+                            group.antrian.forEach(item => {
+                                htmlContent += `<div style="margin-left: 20px; margin-bottom: 10px;">
+                                <p>Nomor Antrian: ${item.nomor}</p>
+                                <p>Tanggal: ${item.tanggal}</p>
+                                <p>Status: ${item.status}</p>
+                                <a href="${item.link}" target='_blank'>Cetak Antrian</a>
+                            </div>`;
+                            });
+
+                            htmlContent += `</div>`;
+                        });
+
+                        $('#status-result').html(htmlContent);
                     },
                     error: function(xhr) {
                         $('#action').removeAttr('disabled');
