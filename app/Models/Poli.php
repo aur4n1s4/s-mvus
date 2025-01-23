@@ -12,4 +12,9 @@ class Poli extends Model
     {
         return $this->hasMany(Antrian::class, 'poli_id');
     }
+
+    public function antriansSelesai()
+    {
+        return $this->hasMany(Antrian::class, 'poli_id');
+    }
 }

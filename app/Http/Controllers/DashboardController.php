@@ -56,13 +56,30 @@ class DashboardController extends Controller
                 $query->where('status', 1)
                     ->whereDate('tanggal', Carbon::today()) // Filter untuk tanggal hari ini
                     ->select('id', 'poli_id', 'no_antrian');
+            },
+            'antriansSelesai' => function ($query) {
+                $query->where('status', 2)
+                    ->whereDate('tanggal', Carbon::today())
+                    ->orderBy('no_antrian', 'desc');
             }
         ])->get()->map(function ($poli) {
             $color = ['secondary', 'primary', 'success', 'danger'];
             $poli->color = $color[rand(0, 3)];
+
+            // Ambil current_antrian dari antrians
             $poli->current_antrian = $poli->antrians->pluck('no_antrian')->first() ?? 0;
+
+            // Ambil last_antrian_selesai dari antriansSelesai
+            $poli->last_antrian_selesai = $poli->antriansSelesai->pluck('no_antrian')->first() ?? 0;
+
+            // Jika current_antrian = 0, gunakan last_antrian_selesai
+            if ($poli->current_antrian == 0) {
+                $poli->current_antrian = $poli->last_antrian_selesai;
+            }
+
             return $poli;
         });
+
 
         // Tambahkan total keseluruhan
         $totalAntrian = $antrianPolis->sum('total_antrian');
@@ -95,11 +112,27 @@ class DashboardController extends Controller
                 $query->where('status', 1)
                     ->whereDate('tanggal', Carbon::today()) // Filter untuk tanggal hari ini
                     ->select('id', 'poli_id', 'no_antrian');
+            },
+            'antriansSelesai' => function ($query) {
+                $query->where('status', 2)
+                    ->whereDate('tanggal', Carbon::today())
+                    ->orderBy('no_antrian', 'desc');
             }
         ])->get()->map(function ($poli) {
             $color = ['secondary', 'primary', 'success', 'danger'];
             $poli->color = $color[rand(0, 3)];
+
+            // Ambil current_antrian dari antrians
             $poli->current_antrian = $poli->antrians->pluck('no_antrian')->first() ?? 0;
+
+            // Ambil last_antrian_selesai dari antriansSelesai
+            $poli->last_antrian_selesai = $poli->antriansSelesai->pluck('no_antrian')->first() ?? 0;
+
+            // Jika current_antrian = 0, gunakan last_antrian_selesai
+            if ($poli->current_antrian == 0) {
+                $poli->current_antrian = $poli->last_antrian_selesai;
+            }
+
             return $poli;
         });
 
