@@ -28,6 +28,14 @@ Route::prefix('pendaftaran')->name('pendaftaran.')->group(function () {
     Route::get('cetak/{id}', 'PendaftaranController@cetakPdf')->name('cetak');
 });
 
+Route::prefix('account')
+    ->group(function () {
+        Route::get('profile', 'AccountController@profile')->name('account.profile');
+        Route::post('profile/updateFoto', 'AccountController@updateFoto')->name('account.updateFoto');
+        Route::get('password', 'AccountController@password')->name('account.password');
+        Route::patch('password', 'AccountController@updatePassword')->name('account.password');
+    });
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->middleware('auth')->name('home');
