@@ -71,7 +71,6 @@ class AntrianController extends Controller
         ]);
 
         // Arahkan pengunjung ke form pendaftaran pasien lama
-
         if ($request->pasien == 0 && !Pengunjung::where('nik', $request->nik)->exists()) {
             return response('Nik belum terdaftar, silahkan mengisi form pasien baru.', 404);
         }
@@ -85,7 +84,7 @@ class AntrianController extends Controller
         $exists = Antrian::whereHas('pengunjung', function ($query) use ($request) {
             $query->where('nik', $request->nik);
         })
-            ->whereDate('tanggal', $request->tgl_kunjung)
+            ->whereDate('tanggal', $request->tanggal)
             ->exists();
 
         if ($exists) {
@@ -95,7 +94,7 @@ class AntrianController extends Controller
         try {
             DB::beginTransaction();
 
-            $noAntrian = (Antrian::where('poli_id', $request->poli_id)->whereDate('tanggal', $request->tgl_kunjung)->max('no_antrian') ?? 0) + 1;
+            $noAntrian = (Antrian::where('poli_id', $request->poli_id)->whereDate('tanggal', $request->tanggal)->max('no_antrian') ?? 0) + 1;
 
             $pengunjung = Pengunjung::where('nik', $request->nik)->first();
 
