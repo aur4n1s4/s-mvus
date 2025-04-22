@@ -94,7 +94,7 @@ class AntrianController extends Controller
         try {
             DB::beginTransaction();
 
-            $noAntrian = (Antrian::where('poli_id', $request->poli_id)->whereDate('tanggal', $request->tanggal)->max('no_antrian') ?? 0) + 1;
+            $noAntrian = (Antrian::where('poli_id', $request->poli)->whereDate('tanggal', $request->tanggal)->max('no_antrian') ?? 0) + 1;
 
             $pengunjung = Pengunjung::where('nik', $request->nik)->first();
 
