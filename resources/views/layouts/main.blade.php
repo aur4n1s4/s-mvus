@@ -47,10 +47,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="{{ url('/') }}" class="nav-item nav-link">Pendaftaran</a>
-                {{-- <a href="{{ route('about') }}" class="nav-item nav-link">About</a> --}}
-                {{-- <a href="{{ route('service') }}" class="nav-item nav-link">Service</a> --}}
-                {{-- <a href="{{ route('dokter') }}" class="nav-item nav-link">Dokter</a> --}}
+                <a href="{{ url('/') }}" class="nav-item nav-link">Home</a>
+                <a href="{{ route('about') }}" class="nav-item nav-link">About</a>
+                <a href="{{ route('service') }}" class="nav-item nav-link">Service</a>
+                <a href="{{ route('dokter') }}" class="nav-item nav-link">Dokter</a>
                 <a href="{{ route('live-antrian') }}" class="nav-item nav-link">Live Antrian</a>
                 <a href="{{ route('contact') }}" class="nav-item nav-link">Contact</a>
             </div>
